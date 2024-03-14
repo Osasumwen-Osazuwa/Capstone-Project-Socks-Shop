@@ -1,0 +1,20 @@
+---
+database:
+  host: localhost
+  port: 5432
+  dbname: socks_shop_db
+  users:
+    - username: "user"
+      password: "password"   
+    - username: "user1"
+      password: "password"   
+    - username: "Eve_Berger"
+      password: "eve"   
+
+include_vars: sensitive.yml
+
+environment:
+  logging_level: INFO
+  personal_access_token: var.personal_access_token
+  external_service_url: https://api.github.com
+

@@ -1,0 +1,26 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname', 'namespace', 'severity']
+  group_wait: 10s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: 'default'
+
+receivers:
+- name: 'default'
+  email_configs:
+  - to: 'admin@example.com'            #Receiver email
+    from: 'alertmanager@example.com'   #Sender email
+    smarthost: 'smtp.example.com:587'
+    auth_username: 'alertmanager'
+    auth_password: 'password'
+    auth_identity: 'alertmanager@example.com'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'namespace']
